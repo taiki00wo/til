@@ -1,0 +1,6 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    { "name": "til-preview", "runtimeExecutable": "/opt/homebrew/bin/npm", "runtimeArgs": ["run", "preview"], "port": 4321 }
+  ]
+}

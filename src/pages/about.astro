@@ -1,0 +1,22 @@
+---
+import Base from '../layouts/Base.astro';
+import { AUTHOR, GITHUB_URL } from '../consts';
+---
+
+<Base title="About">
+	<article>
+		<h1>About</h1>
+		<p>{AUTHOR} の TIL（Today I Learned）です。日々の調査や検証で分かったことを短く残しています。</p>
+
+		<h2>経歴</h2>
+		<p><!-- TODO: 経歴を書く --></p>
+
+		<h2>よく触る技術</h2>
+		<p><!-- TODO: 例）TypeScript / Next.js / Python / Docker --></p>
+
+		<h2>リンク</h2>
+		<ul>
+			<li><a href={GITHUB_URL}>GitHub</a></li>
+		</ul>
+	</article>
+</Base>

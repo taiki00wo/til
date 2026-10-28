@@ -1,0 +1,24 @@
+---
+import PostList from '../components/PostList.astro';
+import Base from '../layouts/Base.astro';
+import { getPosts } from '../lib/posts';
+
+const posts = await getPosts();
+---
+
+<Base>
+	<Fragment slot="head">
+		<link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
+		<script is:inline src="/pagefind/pagefind-ui.js"></script>
+	</Fragment>
+	<div id="search"></div>
+	<p class="meta">{posts.length} posts</p>
+	<PostList posts={posts} groupByMonth />
+	<script is:inline>
+		window.addEventListener('DOMContentLoaded', () => {
+			if (window.PagefindUI) {
+				new PagefindUI({ element: '#search', showSubResults: true, showImages: false, translations: { placeholder: 'メモを検索' } });
+			}
+		});
+	</script>
+</Base>

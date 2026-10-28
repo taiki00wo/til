@@ -27,9 +27,8 @@ function pagefind() {
 	};
 }
 
-// TODO: workers.dev のURL（または独自ドメイン）に書き換える
 export default defineConfig({
-	site: 'https://til.pages.dev',
+	site: 'https://til.taiki00wo.workers.dev',
 	integrations: [mdx(), sitemap(), pagefind()],
 	markdown: {
 		shikiConfig: {

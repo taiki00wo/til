@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { AUTHOR, GITHUB_URL, SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { GITHUB_URL, SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 
 interface Props {
 	title?: string;
@@ -48,7 +48,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 			</div>
 		</main>
 		<footer class="site">
-			<div class="container">© {new Date().getFullYear()} {AUTHOR} · <a href="/rss.xml">RSS</a></div>
+			<div class="container">© {new Date().getFullYear()} {SITE_TITLE} · <a href="/rss.xml">RSS</a></div>
 		</footer>
 	</body>
 </html>

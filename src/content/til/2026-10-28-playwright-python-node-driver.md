@@ -1,6 +1,6 @@
 ---
 title: Playwright for PythonはNode.jsのdriverとパイプでJSONをやり取りしている
-date: 2026-10-28
+date: 2026-10-28T22:38:04+09:00
 tags: [python, playwright]
 description: Python版Playwrightはブラウザを直接操作せず、wheelに同梱したNode.jsのdriverを子プロセスで起動し、stdin/stdoutで「4バイトの長さ+JSON」を送り合っている。
 ---

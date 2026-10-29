@@ -1,6 +1,6 @@
 ---
 title: type-challengesのeasyは数個の型テクニックの組み合わせで解ける
-date: 2026-10-28
+date: 2026-10-28T22:38:06+09:00
 tags: [typescript, type-challenges]
 description: easy 13問はMapped Types・Indexed Access・Conditional Types・infer・再帰・スプレッドの組み合わせで解けた。
 ---

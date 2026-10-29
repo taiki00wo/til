@@ -14,5 +14,5 @@ export function countTags(posts: Awaited<ReturnType<typeof getPosts>>) {
 }
 
 export function formatDate(date: Date) {
-	return date.toISOString().slice(0, 10);
+	return date.toLocaleDateString('sv-SE', { timeZone: 'Asia/Tokyo' });
 }

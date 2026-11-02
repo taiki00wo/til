@@ -1,0 +1,74 @@
+#!/bin/sh
+# コミットする下書きTILのファイル名と date を現在時刻（Asia/Tokyo）に更新する。
+# URLはファイル名から作られるので、公開済みの記事の修正では更新しない。
+# 対象: 新規の記事 / 下書きのままの記事 / 今回 draft を外して公開する記事
+set -eu
+
+now=$(TZ=Asia/Tokyo date +%FT%T+09:00)
+today=${now%%T*}
+tab=$(printf '\t')
+
+# 標準入力のMarkdownのfrontmatterが draft: true なら成功を返す
+is_draft() {
+	awk '
+		NR == 1 && $0 == "---" { inside = 1; next }
+		inside && $0 == "---" { exit }
+		inside && /^draft:[[:space:]]*true[[:space:]]*$/ { found = 1 }
+		END { exit !found }
+	'
+}
+
+changes=$(git diff --cached -M --name-status --diff-filter=ACMR -- \
+	'src/content/til/*.md' 'src/content/til/*.mdx')
+[ -n "$changes" ] || exit 0
+
+printf '%s\n' "$changes" | while IFS="$tab" read -r status first second; do
+	case "$status" in
+	R* | C*)
+		old=$first
+		new=$second
+		;;
+	*)
+		old=$first
+		new=$first
+		;;
+	esac
+
+	if git cat-file -e "HEAD:$old" 2>/dev/null; then
+		was_draft=0
+		git show "HEAD:$old" | is_draft && was_draft=1
+		is_draft_now=0
+		git show ":$new" | is_draft && is_draft_now=1
+		[ "$was_draft" = 1 ] || [ "$is_draft_now" = 1 ] || continue
+	fi
+
+	if ! git diff --quiet -- "$new"; then
+		echo "pre-commit: $new にステージしていない変更があります。git add してからコミットしてください。" >&2
+		exit 1
+	fi
+
+	dir=${new%/*}
+	base=${new##*/}
+	slug=$(printf '%s' "$base" | sed -E 's/^[0-9]{4}-[0-9]{2}-[0-9]{2}-//')
+	target="$dir/$today-$slug"
+
+	if [ "$target" != "$new" ]; then
+		if [ -e "$target" ]; then
+			echo "pre-commit: $target が既にあります。slugを変えてください。" >&2
+			exit 1
+		fi
+		git mv "$new" "$target"
+	fi
+
+	tmp=$(mktemp)
+	awk -v now="$now" '
+		NR == 1 && $0 == "---" { inside = 1; print; next }
+		inside && $0 == "---" { inside = 0 }
+		inside && /^date:/ { print "date: " now; next }
+		{ print }
+	' "$target" >"$tmp"
+	cat "$tmp" >"$target"
+	rm -f "$tmp"
+	git add "$target"
+	echo "pre-commit: $target の日付を $now に更新しました。"
+done

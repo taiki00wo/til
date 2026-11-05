@@ -86,3 +86,37 @@ hr { border: none; border-top: 1px solid var(--border); }
 	--pagefind-ui-tag: var(--tag-bg);
 	--pagefind-ui-font: inherit;
 }
+
+.remark-link-card-plus__container { margin: 1rem 0; }
+.remark-link-card-plus__card { display: flex; min-height: 110px; color: inherit; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.remark-link-card-plus__card:hover { text-decoration: none; background: var(--code-bg); }
+.remark-link-card-plus__main { flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: space-between; gap: 0.4rem; padding: 0.8rem 1rem; }
+.remark-link-card-plus__title { font-weight: 600; line-height: 1.5; overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+.remark-link-card-plus__description { color: var(--muted); font-size: 0.8rem; line-height: 1.5; overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+.remark-link-card-plus__meta { display: flex; align-items: center; gap: 0.4rem; color: var(--muted); font-size: 0.75rem; }
+.remark-link-card-plus__favicon { flex-shrink: 0; }
+@media (max-width: 480px) {
+	.remark-link-card-plus__description { display: none; }
+}
+
+html { scroll-behavior: smooth; }
+article :is(h2, h3) { scroll-margin-top: 1.5rem; }
+.post-layout { position: relative; }
+.toc-list { list-style: none; margin: 0; padding: 0; font-size: 0.8rem; line-height: 1.5; }
+.toc-list li { margin: 0.45rem 0; }
+.toc-list a { color: var(--muted); display: block; }
+.toc-list a:hover { color: var(--fg); text-decoration: none; }
+.toc-depth-3 { padding-left: 0.8rem; }
+.toc-mobile { border: 1px solid var(--border); border-radius: 8px; padding: 0.6rem 1rem; margin: 1rem 0 1.5rem; font-size: 0.9rem; }
+.toc-mobile summary { cursor: pointer; font-weight: 600; }
+.toc-side { display: none; }
+@media (min-width: 1240px) {
+	.toc-mobile { display: none; }
+	.toc-side { display: block; position: absolute; top: 0; bottom: 0; left: calc(100% + 2rem); width: 200px; }
+	.toc-side nav { position: sticky; top: 1.5rem; max-height: calc(100vh - 3rem); overflow-y: auto; padding-left: 0.8rem; border-left: 1px solid var(--border); }
+	.toc-title { margin: 0 0 0.5rem; font-size: 0.8rem; font-weight: 600; }
+	.toc-list a.active { color: var(--accent); font-weight: 600; }
+}
+@media (prefers-reduced-motion: reduce) {
+	html { scroll-behavior: auto; }
+}

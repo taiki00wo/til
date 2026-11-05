@@ -2,7 +2,9 @@
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import { defineConfig } from 'astro/config';
+import { unified } from '@astrojs/markdown-remark';
 import { fileURLToPath } from 'node:url';
+import remarkLinkCard from 'remark-link-card-plus';
 
 /**
  * ビルド完了時に Pagefind の検索索引を dist/pagefind に作る。
@@ -31,6 +33,19 @@ export default defineConfig({
 	site: 'https://til.taiki00wo.workers.dev',
 	integrations: [mdx(), sitemap(), pagefind()],
 	markdown: {
+		// 前後を空行で挟んだURLだけの行を、OGP情報付きのカードにする
+		processor: unified({
+			remarkPlugins: [
+				[
+					remarkLinkCard,
+					{
+						shortenUrl: true,
+						ignoreExtensions: ['.pdf', '.mp4'],
+						noThumbnail: true,
+					},
+				],
+			],
+		}),
 		shikiConfig: {
 			themes: { light: 'github-light', dark: 'github-dark' },
 		},

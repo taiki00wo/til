@@ -1,8 +1,7 @@
 ---
 title: "【読書】イラストでわかるDockerとKubernetes"
-date: 2026-11-05T22:37:42+09:00
+date: 2026-11-05T23:00:05+09:00
 tags: [docker, kubernetes, book]
-draft: true
 ---
 
 <!-- Zennのスクラップから移行: https://zenn.dev/tnakano/scraps/b530f875209586 -->
